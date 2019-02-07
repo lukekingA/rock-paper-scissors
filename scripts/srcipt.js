@@ -71,11 +71,11 @@ function populate() {
   }
   template += `<button id="reset"class="btn-sm">Reset</button>`
   template += `</div>`
-  template += `<div class="text-center">`
+  template += `<div class="text-center mt-2">`
   //populate winning and losing banners
-  template += `<h1 id="win" class="display1 d-none mb-0">You Win</h1>`
-  template += `<h1 id="lose" class="display1 d-none mb-0">You Lose</h1>`
-  template += `<h1 id="draw" class="display1 d-none mb-0">Draw</h1>`
+  template += `<h1 id="win" class="display1 d-none mb-0 text-white text-border">You Win</h1>`
+  template += `<h1 id="lose" class="display1 d-none mb-0 text-white text-border">You Lose</h1>`
+  template += `<h1 id="draw" class="display1 d-none mb-0 text-white text-border">Draw</h1>`
   template += `</div>`
   $('#app').html(template)
   let btnArr = Array.from($('button'))
@@ -91,7 +91,7 @@ function populate() {
 
 function buttonClick(event) {
   game.player.currentPlay = event.target.id
-  $("#player").html('<img class="img-fluid"src=images/' + event.target.id + '.svg>')
+  $("#player").html('<img class="img-fluid"src=images/' + event.target.id + '-left.svg>')
   computerPlay()
   game.win()
   update()

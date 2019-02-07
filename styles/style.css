@@ -2,3 +2,7 @@ body {
   font-family: 'Anton',
     sans-serif;
 }
+
+.text-border {
+  text-shadow: 0 0 6px black;
+}
