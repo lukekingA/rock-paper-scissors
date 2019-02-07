@@ -46,12 +46,18 @@ let game = {
     game.player.wins = 0
     game.computer.wins = 0
     game.games = 0
+    $('#player img').remove()
+    $("#computer img").remove()
     update()
   },
   setBanner(condition) {
     let element = document.getElementById(condition)
     element.classList.remove('d-none')
-    setTimeout(() => element.classList.add('d-none'), 3000)
+    $('#mobile-margin').toggleClass('mt-5')
+    setTimeout(() => {
+      element.classList.add('d-none')
+      $('#mobile-margin').toggleClass('mt-5')
+    }, 1000)
 
   }
 }
@@ -61,18 +67,18 @@ function populate() {
   template += `<div">`
   for (let play in plays) {
     //populate buttons
-    template += `<button id=${plays[play].name} type="button" data-type="plays" class="btn-lg mx-3">${plays[play].name}</button>`
+    template += `<button id=${plays[play].name} type="button" data-type="plays" class="btn-sm btn-sm-lg mx-3">${plays[play].name}</button>`
   }
   template += `<button id="reset"class="btn-sm">Reset</button>`
   template += `</div>`
-  template += `<div>`
+  template += `<div class="text-center">`
   //populate winning and losing banners
-  template += `<h1 id="win" class="display1 d-none">You Win</h1>`
-  template += `<h1 id="lose" class="display1 d-none">You Lose</h1>`
-  template += `<h1 id="draw" class="display1 d-none">Draw</h1>`
+  template += `<h1 id="win" class="display1 d-none mb-0">You Win</h1>`
+  template += `<h1 id="lose" class="display1 d-none mb-0">You Lose</h1>`
+  template += `<h1 id="draw" class="display1 d-none mb-0">Draw</h1>`
   template += `</div>`
-  document.getElementById('app').innerHTML = template
-  let btnArr = Array.from(document.getElementsByTagName('button'))
+  $('#app').html(template)
+  let btnArr = Array.from($('button'))
   btnArr.forEach(button => {
     if (button.dataset.type == 'plays') {
       button.addEventListener('click', buttonClick)
@@ -85,6 +91,7 @@ function populate() {
 
 function buttonClick(event) {
   game.player.currentPlay = event.target.id
+  $("#player").html('<img class="img-fluid rounded shadow-lg"src=images/' + event.target.id + '.jpg>')
   computerPlay()
   game.win()
   update()
@@ -93,12 +100,14 @@ function buttonClick(event) {
 function computerPlay() {
   let playStrings = Object.keys(plays)
   let random = Math.floor(Math.random() * playStrings.length)
+  let playstring = playStrings[random]
   game.computer.currentPlay = playStrings[random]
+  $("#computer").html('<img class="img-fluid rounded shadow-lg"src=images/' + playstring + '.jpg>')
 
 }
 
 function update() {
-  document.getElementById('gameTotal').innerText = game.games
-  document.getElementById('yourTotal').innerText = game.player.wins
-  document.getElementById('compTotal').innerText = game.computer.wins
+  $('#gameTotal').text(game.games)
+  $('#yourTotal').text(game.player.wins)
+  $('#compTotal').text(game.computer.wins)
 }
