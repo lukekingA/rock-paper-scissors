@@ -48,7 +48,7 @@ let game = {
     game.games = 0
     $('#player img').remove()
     $("#computer img").remove()
-    update()
+    game.update()
   },
   setBanner(condition) {
     let element = document.getElementById(condition)
@@ -58,7 +58,25 @@ let game = {
       element.classList.add('d-none')
       $('#mobile-margin').toggleClass('mt-5')
     }, 1000)
-
+  },
+  computerPlay() {
+    let playStrings = Object.keys(plays)
+    let random = Math.floor(Math.random() * playStrings.length)
+    let playstring = playStrings[random]
+    game.computer.currentPlay = playStrings[random]
+    $("#computer").html('<img class="img-fluid"src=images/' + playstring + '.svg>')
+  },
+  buttonClick(event) {
+    game.player.currentPlay = event.target.id
+    $("#player").html('<img class="img-fluid"src=images/' + event.target.id + '-left.svg>')
+    game.computerPlay()
+    game.win()
+    game.update()
+  },
+  update() {
+    $('#gameTotal').text(game.games)
+    $('#yourTotal').text(game.player.wins)
+    $('#compTotal').text(game.computer.wins)
   }
 }
 
@@ -81,33 +99,10 @@ function populate() {
   let btnArr = Array.from($('button'))
   btnArr.forEach(button => {
     if (button.dataset.type == 'plays') {
-      button.addEventListener('click', buttonClick)
+      button.addEventListener('click', game.buttonClick)
     }
     if (button.id == 'reset') {
       button.addEventListener('click', game.reset)
     }
   })
-}
-
-function buttonClick(event) {
-  game.player.currentPlay = event.target.id
-  $("#player").html('<img class="img-fluid"src=images/' + event.target.id + '-left.svg>')
-  computerPlay()
-  game.win()
-  update()
-}
-
-function computerPlay() {
-  let playStrings = Object.keys(plays)
-  let random = Math.floor(Math.random() * playStrings.length)
-  let playstring = playStrings[random]
-  game.computer.currentPlay = playStrings[random]
-  $("#computer").html('<img class="img-fluid"src=images/' + playstring + '.svg>')
-
-}
-
-function update() {
-  $('#gameTotal').text(game.games)
-  $('#yourTotal').text(game.player.wins)
-  $('#compTotal').text(game.computer.wins)
 }
