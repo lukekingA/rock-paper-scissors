@@ -91,7 +91,7 @@ function populate() {
 
 function buttonClick(event) {
   game.player.currentPlay = event.target.id
-  $("#player").html('<img class="img-fluid rounded shadow-lg"src=images/' + event.target.id + '.jpg>')
+  $("#player").html('<img class="img-fluid"src=images/' + event.target.id + '.svg>')
   computerPlay()
   game.win()
   update()
@@ -102,7 +102,7 @@ function computerPlay() {
   let random = Math.floor(Math.random() * playStrings.length)
   let playstring = playStrings[random]
   game.computer.currentPlay = playStrings[random]
-  $("#computer").html('<img class="img-fluid rounded shadow-lg"src=images/' + playstring + '.jpg>')
+  $("#computer").html('<img class="img-fluid"src=images/' + playstring + '.svg>')
 
 }
 
